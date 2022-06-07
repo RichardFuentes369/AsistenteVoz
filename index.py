@@ -17,6 +17,7 @@ import urllib.request
 import json
 import datetime
 import wikipedia
+import os
 
 # name of the virtual assistant
 name = 'siri'
@@ -66,6 +67,14 @@ def listen():
         pass
     return flag
 
+def abriendo(abrir):
+    if 'notas' in abrir:
+        os.system("notepad.exe file.txt")
+    elif 'navegador' in abrir:
+        os.system("start msedge")
+    elif 'editor' in abrir:
+        os.system("code")
+
 def run(rec):
     '''
         All the actions that virtual assistant can do
@@ -87,7 +96,11 @@ def run(rec):
         wikipedia.set_lang("es")
         info = wikipedia.summary(order, 1)
         talk(info)
-    elif 'exit' in rec:
+    elif 'abre' in rec:
+        abrir = rec.replace('abre', '')
+        abriendo(abrir)
+        talk("Abriendo " + abrir)
+    elif 'salir' in rec:
         flag = 0
         talk("Saliendo...")
     else:
